@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}قائمة العقود{% endblock %}
+{% block content %}
+<h1 class="mb-4">قائمة العقود</h1>
+<table class="table table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>الاسم</th>
+      <th>نوع العقار</th>
+      <th>الإيجار</th>
+      <th>المدة</th>
+      <th>الرسوم</th>
+      <th>الحالة</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contract in contracts %}
+    <tr class="{% if contract.status == 'expired' %}table-danger{% elif contract.status == 'near_expiry' %}table-warning{% else %}table-success{% endif %}'">
+      <td>{{ contract.name }}</td>
+      <td>{{ contract.get_property_type_display }}</td>
+      <td>{{ contract.monthly_rent }}</td>
+      <td>{{ contract.start_date }} - {{ contract.end_date }}</td>
+      <td>{{ contract.total_fee }}</td>
+      <td>{{ contract.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
