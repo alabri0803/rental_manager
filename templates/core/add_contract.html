@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}إضافة عقد إيجار{% endblock %}
+{% block content %}
+<div class="card p-4">
+  <h2 class="mb-4">إضافة عقد إيجار جديد</h2>
+  <form method="POST" action="{% url 'add_contract' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+    <div class="mb-3">
+      <label class="form-label">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+      <div class="text-danger">{{ field.errors }}</div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">حفظ العقد</button>
+  </form>
+</div>
+{% endblock %}
