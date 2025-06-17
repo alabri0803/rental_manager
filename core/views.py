@@ -1,9 +1,13 @@
 from typing import Counter
-from django.shortcuts import redirect, render
+
+from django.contrib import messages
 from django.db.models import Count
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
+
 from .forms import RentalContractForm
 from .models import PropertyType, RentalContract
-from django.utils.translation import gettext as _
+
 
 def contract_list(request):
   contracts = RentalContract.objects.all()
@@ -43,3 +47,27 @@ def add_contract(request):
   else:
     form = RentalContractForm()
   return render(request, 'core/add_contract.html', {'form': form})
+
+def contract_detail(request, pk):
+  contract = get_object_or_404(RentalContract, pk=pk)
+  return render(request, 'core/contract_detail.html', {'contract': contract})
+
+def contract_edit(request, pk):
+  contract = get_object_or_404(RentalContract, pk=pk)
+  if request.method == 'POST':
+    form = RentalContractForm(request.POST, instance=contract)
+    if form.is_valid():
+      form.save()
+      messages.success(request, "تم تعديل العقد بنجاح")
+      return redirect('contract_list')
+  else:
+    form = RentalContractForm(instance=contract)
+  return render(request, 'core/add_contract.html', {'form': form, 'contract': contract, 'edit': True})
+
+def contract_delete(request, pk):
+  contract = get_object_or_404(RentalContract, pk=pk)
+  if request.method == 'POST':
+    contract.delete()
+    messages.success(request, "تم حذف العقد بنجاح")
+    return redirect('contract_list')
+  return render(request, 'core/contract_confirm_delete.html', {'contract': contract})

@@ -19,6 +19,7 @@
       <th>المدة</th>
       <th>الرسوم</th>
       <th>الحالة</th>
+      <th>الخيارات</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +31,10 @@
       <td>{{ contract.start_date }} - {{ contract.end_date }}</td>
       <td>{{ contract.total_fee }}</td>
       <td>{{ contract.status }}</td>
+      <td>
+        <a class="btn btn-sm btn-info" href="{% url 'core:contract_detail' contract.id %}">عرض</a>
+        <a class="btn btn-sm btn-warning" href="{% url 'core:contract_edit' contract.id %}">تعديل</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'core:contract_delete' contract.id %}">حذف</a>
     </tr>
     {% endfor %}
   </tbody>

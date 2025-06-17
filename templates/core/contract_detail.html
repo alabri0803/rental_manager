@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}تفاصيل العقد{% endblock %}
+{% block content %}
+<div class="card p-4">
+  <h2 class="mb-3">تفاصيل العقد</h2>
+  <ul class="list-group">
+    <li class="list-group-item"><strong>الاسم:</strong> {{ contract.name }}</li>
+    <li class="list-group-item"><strong>نوع العقار:</strong> {{ contract.get_property_type_display }}</li>
+    <li class="list-group-item"><strong>الإيجار الشهري:</strong> {{ contract.monthly_rent }} ريال</li>
+    <li class="list-group-item"><strong>مدة العقد:</strong> من {{ contract.start_date }} إلى {{ contract.end_date }}</li>
+    <li class="list-group-item"><strong>الرسوم:</strong> {{ contract.total_fee }} ريال</li>
+    <li class="list-group-item"><strong>الحالة:</strong> {{ contract.status }}</li>
+    <li class="list-group-item"><strong>عدد الأيام المتبقية:</strong> {{ contract.days_remaining }} يوم</li>
+  </ul>
+  <div class="mt-3">
+    <a class="btn btn-warning" href="{% url 'core:contract_edit' contract.id %}">تعديل</a>
+    <a class="btn btn-danger" href="{% url 'core:contract_delete' contract.id %}">حذف</a>
+    <a class="btn btn-secondary" href="{% url 'core:contract_list' %}">رجوع</a>
+  </div>
+</div>
+{% endblock %}

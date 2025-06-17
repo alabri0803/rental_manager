@@ -1,6 +1,8 @@
 from django import forms
-from .models import RentalContract
 from django.utils.translation import gettext_lazy as _
+
+from .models import RentalContract
+
 
 class RentalContractForm(forms.ModelForm):
   class Meta:

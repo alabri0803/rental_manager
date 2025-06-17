@@ -2,7 +2,7 @@
 {% block title %}إضافة عقد إيجار{% endblock %}
 {% block content %}
 <div class="card p-4">
-  <h2 class="mb-4">إضافة عقد إيجار جديد</h2>
+  <h2 class="mb-4">{% if edit %}تعديل العقد{% else %}إضافة عقد إيجار جديد{% endif %}</h2>
   <form method="POST" action="{% url 'add_contract' %}">
     {% csrf_token %}
     {{ form.non_field_errors }}

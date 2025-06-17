@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}حذف العقد{% endblock %}
+{% block content %}
+<div class="alert alert-danger p-4">
+  <h4>هل أنت متأكد أنك تريد حذف هذا العقد؟</h4>
+  <p><strong>{{ contract.name }} - {{ contract.get_property_type_display }}</strong></p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">نعم، احذف العقد</button>
+    <a class="btn btn-secondary" href="{% url 'core:contract_list' %}">إلغاء</a>
+  </form>
+</div>
+{% endblock %}
